@@ -61,6 +61,7 @@ const deletecart = async (req, res) => {
       });
   };
   
+  // Update cart with cart id
   const updatecart = async (req, res) => {
     let cartID = req.params.cartID;
     const { productlist, user_id, quantity, oneprice, totalprice } = req.body;
@@ -83,7 +84,7 @@ const deletecart = async (req, res) => {
   };
   
 
-
+// Exporting the functions
   module.exports = {
     createnewcart,
     getcart,
