@@ -8,7 +8,7 @@ const morgan = require("morgan")
 
 //declare a constant variable
 const app = express();
-//require  for read variables(MONGODB_URL)
+//require for read variables(MONGODB_URL)
 require("dotenv").config();
 
 app.use(cors());
@@ -32,15 +32,11 @@ mongoose.connect(URL, {
 const authRouter = require("./routes/userroute");
 app.use("/user",authRouter)
 
-// const { notFound, errorHandler } = require("./middlewares/errorHandler");
-// app.use(notFound);
-// app.use(errorHandler);
 
 const connection = mongoose.connection;
 connection.once("open",()=>{
     console.log("mongoDB connection successful !!!");
 })
-
 
 //run the app using portd
 app.listen(PORT, () =>{

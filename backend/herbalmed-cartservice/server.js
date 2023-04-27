@@ -1,30 +1,33 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const cartroute = require("./routes/cartroute");
-//Creating an express app
+//declare a constant variable
 const app = express();
-app.use(express.json({ limit: "100mb" }));
-app.use(express.urlencoded({ limit: "100mb", extended: true }));
+//require  for read variables(MONGODB_URL)
+require("dotenv").config();
 app.use(cors());
+app.use(bodyParser.json());
 
-const PORT = process.env.PORT;
-const URI = process.env.DB_URI;
+//database link
+const URL =
+  "mongodb+srv://gehan:123@cluster0.r651p5j.mongodb.net/?retryWrites=true&w=majority";
+const PORT = 8050;
 
-//Server and Database connection
-mongoose
-  .connect(URI, { useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connection to MongoDB successful");
-    app.listen(PORT, () => {
-      console.log(`Server is running on ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+//create mongo configurations
+mongoose.connect(URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("mongoDB connection successful !!!");
+});
+app.listen(PORT, () => {
+  console.log(`Server is up and running on port number: ${PORT}`);
+});
 
-
-app.use("/", cartroute);
+const productRoute = require("./routes/cartroute");
+app.use("/", productRoute);

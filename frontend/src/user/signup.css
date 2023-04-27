@@ -1,0 +1,22 @@
+.cascading-right {
+    margin-right: -50px;
+  }
+  
+  @media (max-width: 900px) {
+    .cascading-right {
+      margin-right: 0;
+    }
+  }
+  .mainpage{
+    background-color: #8AFF8A;
+  }
+  .tittle2{
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #0ea144c4;
+    
+}
+  

@@ -1,27 +1,23 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const { model, Schema } = require("mongoose");
 
-const cartSchema = new Schema({
-    user_id:{
-        type: String,
-        required: true,
+const cartSchema = new Schema(
+  {
+    user_id: { 
+      type: String, 
+      required: true 
     },
-    productlist:{
-        type: Array,
-        default: [],
-    },
-    quantity:{
-        type: Number,
-        required: true,
-    },
-    oneprice:{
-        type: Number,
-        required: true,
-    },
-    totalprice:{
-        type: Number,
-        required: true,
-    },
-});
 
-module.exports = mongoose.model("cart", cartSchema);
+    products: { 
+      type: Array, 
+      required: true 
+    },
+    
+    total_price: { 
+      type: Number, 
+      required: false 
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = model("cart", cartSchema);

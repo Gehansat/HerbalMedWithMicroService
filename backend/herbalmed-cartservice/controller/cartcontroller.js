@@ -1,93 +1,42 @@
-const cartmodel = require("../models/cartmodel");
+const Cart = require("../models/cartmodel");
 
-const createnewcart = async (req, res) => {
-    const user_id = req.body.user_id;
-    const productlist = req.body.productlist;
-    const quantity = Number(req.body.quantity);
-    const oneprice = Number(req.body.oneprice);
-    const totalprice = (quantity * oneprice);
-  
-    const newcart = new cartmodel({
-        user_id,
-        productlist,
-      quantity,
-      oneprice,
-      totalprice,
+const updatecart = async (req, res) => {
+  var cart = await Cart.findOne({ user_id: req.user._id });
+  if (!cart) {
+    Cart = new Cart({
+      user_id: req.body._id,
+      products: req.body.products,
+      total_price: req.body.total_price,
     });
-  
-    // Saving the new cart and display message
-    await newcart
-      .save()
-      .then(() => {
-        res.json("Cart Successfully Added");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  } else {
+    cart.products = req.body.products;
+    cart.total_price = req.body.total_price;
+  }
+  await cart.save();
+  res.json(cart);
+};
 
-  // Retrieving the data of single cart by passing id
 const getcart = async (req, res) => {
-    
-    let cartID = req.params.cartID;
-    console.log(cartID);
-  
-    await cartmodel.findById(cartID)
-      .then((cart) => {
-        res.json(cart);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        res
-          .status(500)
-          .send({ status: "Error when retrieving cart details", error: err.message });
-      });
-  };
+  try {
+    var cart = await Cart.findOne({ user_id: req.user._id });
+    // if the cart exist and if the cart has products, get the products rom the cart
+    if (cart && cart.products.length > 0) {
+      for (var index = 0; index < cart.products.length; index++) {
+        try {
+          // add all the product data
+          cart.products[index].data = await Product.findById(
+            cart.products[index].id
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+    return res.status(200).json(cart ? cart : {});
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "User cart not found" });
+  }
+};
 
-  // Delete cart with cart id
-const deletecart = async (req, res) => {
-    let cartID = req.params.cartID;
-  
-    // Find the cart object with id
-    await cartmodel.findByIdAndDelete(cartID)
-      .then(() => {
-        res.status(200).send({ status: "cart deleted successfully" });
-      })
-      .catch((err) => {
-        console.log(err.message);
-        res
-          .status(500)
-          .send({ status: "Error when deleting the cart", error: err.message });
-      });
-  };
-  
-  // Update cart with cart id
-  const updatecart = async (req, res) => {
-    let cartID = req.params.cartID;
-    const { productlist, user_id, quantity, oneprice, totalprice } = req.body;
-  
-    const updateCart = {
-      productlist,
-      user_id,
-      quantity,
-      oneprice,
-      totalprice,
-    };
-  
-    const update = await cartmodel.findByIdAndUpdate(cartID, updatecart)
-      .then(() => {
-        res.status(200).send({ Status: "Cart updated Successfully", cartmodel: update });
-      })
-      .catch((err) => {
-        res.status(500).send({ status: "Error When Updating Cart" });
-      });
-  };
-  
-
-// Exporting the functions
-  module.exports = {
-    createnewcart,
-    getcart,
-    deletecart,
-    updatecart
-  };
+module.exports = { updatecart, getcart };

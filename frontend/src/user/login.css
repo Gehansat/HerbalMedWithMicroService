@@ -1,0 +1,45 @@
+.loginpg{
+    background-color: hsla(141, 83%, 91%, 0.957);    
+    margin: auto;
+   }
+   
+   .loginForm{
+       width: 100%;
+       max-width: 330px;
+       padding: 15px;
+       margin: auto;
+       height: 100%;
+   }
+   .tittle{
+       font-size: 1.9rem;
+       font-weight: 600;
+       line-height: 1.2;
+       text-align: center;
+       margin-bottom: 1rem;
+       color: #0ea144c4;
+       
+   }
+   .logbtn{
+       width: 100%;
+       padding: 0.375rem 0.75rem;
+       font-size: 1rem;
+       font-weight: 400;
+       line-height: 1.5;
+       color: #fff;
+       background-color: hsla(142, 81%, 69%, 0.769);
+       border-radius: 0.25rem;
+       margin-top: 1rem;
+   }
+   
+   .fbbtn{
+         background-color: #3b5998;
+         color: white;
+         text-align: center;
+   }
+   
+   .btn_google{
+    background-color: crimson;
+    color: white;
+    text-align: center;
+    width: 50%;
+   }

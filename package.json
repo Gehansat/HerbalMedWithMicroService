@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "react": "^18.2.0",
+    "react-social-login-buttons": "^3.6.1",
+    "reactstrap": "^9.1.9"
+  }
+}

@@ -1,17 +1,17 @@
 const router = require("express").Router();
 
 const {
-    createUser,
-    loginUserCtrl,
-    handleRefreshToken,
+    createuser,
+    loginusercontrol,
+    handlerefreshtoken,
     logout
    
 } = require("../controller/usercontroller");
 
 
-router.post("/register",createUser)
-router.post("/logins", loginUserCtrl)
-router.get("/refresh",handleRefreshToken)
+router.post("/signup",createuser)
+router.post("/logins", loginusercontrol)
+router.get("/refresh",handlerefreshtoken)
 router.get("/logout",logout)
 
 
