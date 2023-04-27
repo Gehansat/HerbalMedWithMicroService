@@ -1,7 +1,8 @@
-const roduct = require("../models/productModel");
+const Product = require("../model/productmodel");
 const asyncHandler = require("express-async-handler");
 
-const getallproducts = async (req, res) => {
+// Get all products
+const getproducts = async (req, res) => {
   try {
     const data = await Product.find();
     res.json(data);
@@ -10,26 +11,28 @@ const getallproducts = async (req, res) => {
   }
 };
 
-const getOneProduct = asyncHandler(async (req, res) => {
+// Get one product
+const getoneproduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
     res.json(product);
   } else {
     res.status(404);
-    throw new Error("Product not found");
+    throw new Error("Failed !! Product not found");
   }
 });
 
-const addProduct = asyncHandler(async (req, res) => {
-  const { productName, description, image, sellerId, price, status } = req.body;
+// Add product
+const productadd = asyncHandler(async (req, res) => {
+  const { productname, description, image, sellerId, productprice, status } = req.body;
   try {
     const product = new Product({
-      productName,
+      productname,
       description,
       image,
       sellerId,
-      price,
+      productprice,
       status,
     });
     const createdProduct = await product.save();
@@ -40,16 +43,17 @@ const addProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const updateProduct = asyncHandler(async (req, res) => {
-  const { productName, description, image, sellerId, price, status } = req.body;
+// Update product
+const productupdate = asyncHandler(async (req, res) => {
+  const { productname, description, image, sellerId, productprice, status } = req.body;
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
-      product.productName = productName;
+      product.productname = productname;
       product.description = description;
       product.image = image;
       product.sellerId = sellerId;
-      product.price = price;
+      product.productprice = productprice;
       product.status = status;
       const updatedProduct = await product.save();
       res.json(updatedProduct);
@@ -63,7 +67,8 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteProduct = async (req, res) => {
+// Delete product
+const productdelete = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -74,10 +79,28 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// Search product
+const productsearch = async (req, res) => {
+  try {
+    const query = req.params.text;
+    const regex = new RegExp(query, "i");
+    const products = await Product.find({ productName: { $regex: regex } });
+    if (products.length > 0) {
+      res.status(200).json(products);
+    } else {
+      res.status(404).json({ message: "Products not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
-  getAllProducts,
-  getOneProduct,
-  addProduct,
-  updateProduct,
-  deleteProduct,
+  getproducts,
+  getoneproduct,
+  productadd,
+  productupdate,
+  productdelete,
+  productsearch,
 };

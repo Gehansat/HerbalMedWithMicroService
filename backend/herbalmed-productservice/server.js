@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 //database link
 const URL =
-  "mongodb+srv://kushan:J8EXMSRNpPTSU0l4@cluster0.mbzff4m.mongodb.net/test";
+  "mongodb+srv://gehan:123@cluster0.r651p5j.mongodb.net/?retryWrites=true&w=majority";
 const PORT = 8010;
 
 //create mongo configurations
@@ -29,5 +29,5 @@ app.listen(PORT, () => {
   console.log(`Server is up and running on port number: ${PORT}`);
 });
 
-const productRoute = require("./routes/productsRoutes");
+const productRoute = require("./routes/productroute");
 app.use("/", productRoute);
