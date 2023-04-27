@@ -83,26 +83,26 @@ const logout = asyncHandler(async(req,res) => {
 })
 
 //handle refresh token
-const handlerefreshtoken = asyncHandler(async(req,res) => {
-    const cookie = req.cookies;
-    console.log(cookie);
-    if(!cookie?.refreshToken) throw new Error("No refresh Token in cookies");
-    const refreshToken = cookie.refreshToken;
-    console.log(refreshToken);
-    const user = await User.findOne({refreshToken});
-    if(!user) throw new Error('Errrorr !!!! No refresh token present in db or not matched');
-    jwt.verify(refreshToken, process.env.JWT_SECRET,(err,decoded) => {
-        if(err || user.id !== decoded.id){
-            throw new Error("Error in refresh token")
-        }
-        const accessToken = generateToken(user?._id);
-        res.json({accessToken})
-    })
-})
+// const handlerefreshtoken = asyncHandler(async(req,res) => {
+//     const cookie = req.cookies;
+//     console.log(cookie);
+//     if(!cookie?.refreshToken) throw new Error("No refresh Token in cookies");
+//     const refreshToken = cookie.refreshToken;
+//     console.log(refreshToken);
+//     const user = await User.findOne({refreshToken});
+//     if(!user) throw new Error('Errrorr !!!! No refresh token present in db or not matched');
+//     jwt.verify(refreshToken, process.env.JWT_SECRET,(err,decoded) => {
+//         if(err || user.id !== decoded.id){
+//             throw new Error("Error in refresh token")
+//         }
+//         const accessToken = generateToken(user?._id);
+//         res.json({accessToken})
+//     })
+// })
 
 module.exports = {
     createuser,
     loginusercontrol,
-    handlerefreshtoken,
+    // handlerefreshtoken,
     logout
 };

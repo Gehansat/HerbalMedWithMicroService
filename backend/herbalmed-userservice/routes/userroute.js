@@ -11,7 +11,7 @@ const {
 
 router.post("/signup",createuser)
 router.post("/logins", loginusercontrol)
-router.get("/refresh",handlerefreshtoken)
+// router.get("/refresh",handlerefreshtoken)
 router.get("/logout",logout)
 
 
