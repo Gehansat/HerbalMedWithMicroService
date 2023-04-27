@@ -32,7 +32,6 @@ mongoose.connect(URL, {
 const authRouter = require("./routes/userroute");
 app.use("/user",authRouter)
 
-
 const connection = mongoose.connection;
 connection.once("open",()=>{
     console.log("mongoDB connection successful !!!");

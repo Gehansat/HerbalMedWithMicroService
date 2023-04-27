@@ -36,6 +36,7 @@ const loginusercontrol = asyncHandler(async (req, res) => {
           new: true,
         }
       );
+      
       const token = generateToken(findUser?._id);
       let result = await Token.create({ token: token });
       if (result) {

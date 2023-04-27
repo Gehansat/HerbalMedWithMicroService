@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payementservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payementservice
+  template:
+    metadata:
+      labels:
+        app: payementservice
+    spec:
+      containers:
+        - name: payementservice
+          image: herbalmed/payementservice:latest # replace with your Docker image name
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8030 # replace with the port your app listens on
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payementservice
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8030
+      targetPort: 8030
+      protocol: TCP
+  selector:
+    app: payementservice

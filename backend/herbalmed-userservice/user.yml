@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      containers:
+        - name: userservice
+          image: herbalmed/userservice:latest # replace with your Docker image name
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8020 # replace with the port your app listens on
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8020
+      targetPort: 8020
+      protocol: TCP
+  selector:
+    app: userservice
