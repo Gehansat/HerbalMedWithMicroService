@@ -12,7 +12,7 @@ paypal.configure({
 const app = express();
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
-const PORT = 8030;
+const PORT = 8040;
 app.listen(PORT, () => console.log(`Server Started on ${PORT}`));
 app.post("/pay", (req, res) => {
   const create_payment_json = {
@@ -21,8 +21,8 @@ app.post("/pay", (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:8030/success",
-      cancel_url: "http://localhost:8030/cancel",
+      return_url: "http://localhost:8040/success",
+      cancel_url: "http://localhost:8040/cancel",
     },
     transactions: [
       {
@@ -58,6 +58,7 @@ app.post("/pay", (req, res) => {
     }
   });
 });
+
 app.get("/success", (req, res) => {
   const payerId = req.query.PayerID;
   const paymentId = req.query.paymentId;

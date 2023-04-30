@@ -21,6 +21,7 @@ const createuser = asyncHandler(async (req,res) => {
 })
 
 ///user login
+
 const loginusercontrol = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     //check if user exists or not
@@ -57,7 +58,6 @@ const loginusercontrol = asyncHandler(async (req, res) => {
       throw new Error("Credentials are Invalid !!!!");
     }
   });
-
 
 //logout function
 const logout = asyncHandler(async(req,res) => {

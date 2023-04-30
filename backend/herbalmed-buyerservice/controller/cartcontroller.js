@@ -1,5 +1,6 @@
 const Cart = require("../models/cartmodel");
 
+
 const updatecart = async (req, res) => {
   var cart = await Cart.findOne({ user_id: req.user._id });
   if (!cart) {
@@ -15,6 +16,7 @@ const updatecart = async (req, res) => {
   await cart.save();
   res.json(cart);
 };
+
 
 const getcart = async (req, res) => {
   try {

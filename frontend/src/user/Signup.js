@@ -54,7 +54,7 @@ function Signup() {
         <Button className="logbtn" type="submit" onClick={onSubmit}>
           Signup
         </Button>
-        <div className="text-center pt-3">Or continue with your social media account</div>
+        <div className="text-center pt-3"></div>
         <div className="text-center">
           <a href="/login">Login</a>
           <span className="p-2">|</span>

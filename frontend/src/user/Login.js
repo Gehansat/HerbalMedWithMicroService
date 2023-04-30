@@ -41,7 +41,7 @@ function Login() {
           <span className="font-weight-bolf">Login</span>
         </h1>
         <h2 className="text-center">
-          <span className="tittle">iHerb</span>
+          <span className="tittle">HerbalMed</span>
         </h2>
         <FormGroup>
           <Label>Email</Label>
@@ -54,7 +54,7 @@ function Login() {
         <Button className="logbtn" type="submit" onClick={onSubmit}>
           Login
         </Button>
-        <div className="text-center pt-3">Or continue with your social media</div>
+        <div className="text-center pt-3"></div>
         <div className="text-center">
           <a href="/signup">Sign up</a>
           <span className="p-2">|</span>
